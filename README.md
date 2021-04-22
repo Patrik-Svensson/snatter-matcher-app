@@ -47,11 +47,13 @@ https://docs.github.com/en/github/authenticating-to-github/adding-a-new-ssh-key-
 
 ### Run Web Client
 1. Open directory `web-client`
-2. Enter `npm start` to run the react web client
+2. Enter `npm install`
+3. Enter `npm start` to run the react web client
 
 ### Run Api
 1. Open directory `api`
-2. Enter `npm start` to run the node api
+2. Enter `npm install`
+3. Enter `npm start` to run the node api
 
 
 
