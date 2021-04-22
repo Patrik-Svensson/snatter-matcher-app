@@ -31,6 +31,8 @@ After installation:
 ### Setup MongoDB
 Download and install MongoDB from https://www.mongodb.com/try/download/community 
 
+https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/
+
 ### SSH-key
 https://docs.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
 
