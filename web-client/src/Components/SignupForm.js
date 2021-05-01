@@ -19,13 +19,22 @@ function SignupForm(props) {
                 'password': password
             })
         })
-        .then(response => response.json())
+        .then(response => {
+            if(response.ok) {
+                return response.json()
+            } else {
+                new Error('invalid username or password');
+            }
+        })
         .then(result => {
             localStorage.removeItem('token');
             localStorage.setItem('token', result.accessToken);
             setToken(result.accessToken);
             setLogin(true);     
             setRedirect(true);
+        })
+        .catch(err => {
+            console.log(err)
         })
     }
 

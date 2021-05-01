@@ -52,7 +52,7 @@ function LoginForm(props) {
                 <h2 style={{marginTop: "30px", marginBottom: "30px"}}>Login</h2>
                 <form onSubmit={handleSubmit} style={{display: "flex", flexDirection: "column", padding: "20px"}}>
                     <div style={{marginBottom: "10px"}}>
-                        <input style={{width:"80%"}} value={username} onChange={handleUsernameChange} type="text" required={true} placeholder="Namn"/>
+                        <input style={{width:"80%"}} value={username} onChange={handleUsernameChange} type="email" required={true} placeholder="E-mail"/>
                     </div>
                     <div style={{marginTop: "10px"}}>
                         <input style={{width:"80%"}} value={password} onChange={handlePasswordChange} type="password" required={true} placeholder="Lösenord"/>

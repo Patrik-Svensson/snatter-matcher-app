@@ -19,12 +19,12 @@ function NavigationBar(props){
     const setLogin = props["setLogin"]
 
     let loginButton;
-    let managementLink = <React.Fragment/>
+    let profileLink = <React.Fragment/>
 
     if (isLoggedin){
-      managementLink = (          
+      profileLink = (          
       <Nav.Item>
-        <NavLink to="/manage" className="h5">Hantera</NavLink>
+        <NavLink to="/profile" className="h5">Profil</NavLink>
       </Nav.Item>)
 
       loginButton = 
@@ -54,13 +54,15 @@ function NavigationBar(props){
           <Nav.Item>
             <NavLink to="/browse" className="h5">Bläddra</NavLink>
           </Nav.Item>
-          {managementLink}
         </Nav>
         <Form inline>
           <FormControl type="text" placeholder="Search" className="mr-sm-2" style={{width:400}} />
           <Button variant="outline-success">Search</Button>
         </Form>
-        {loginButton}
+        <div>
+            {profileLink}
+            {loginButton}
+        </div>
       </Navbar>
     )
 }

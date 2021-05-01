@@ -13,7 +13,38 @@ const userSchema = new Schema({
         unique: true,
         required: true
     },
-    streams: [{type: mongoose.Schema.Types.ObjectId, ref: 'streams'}]
+    status: {
+        type: String,
+        enum: ['pending', 'ready'],
+        default: 'pending'
+    },
+    firstName: {
+        type: String
+    },
+    lastName: {
+        type: String
+    },
+    age: {
+        type: Number
+    },
+    gender: {
+        type: String,
+        enum: ['male', 'female']
+    },
+    offers: {
+        type: [String],
+        enum: ['coaching', 'mentorship', 'networking']
+    },
+    lookingFor: {
+        type: [String],
+        enum: ['coaching', 'mentorship', 'networking']
+    },
+    jobs: {
+        type: [String]
+    },
+    educucations: {
+        type: [String]
+    }
 });
 
 userSchema.pre(

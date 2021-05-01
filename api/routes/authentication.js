@@ -1,6 +1,6 @@
 require('dotenv').config();
 const User = require('../models/User');
-
+const { body, validationResult, check } = require('express-validator');
 const express = require('express');
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken');
@@ -18,6 +18,7 @@ passport.use(
       },
       async (username, password, done) => {
         try {
+          
           const user = await User.create({ username, password });
   
           return done(null, user);
@@ -58,7 +59,17 @@ passport.use(
   );
   
   router.post(
-    '/signup',
+    '/signup', 
+    body('username').isEmail(),
+    body('password').isStrongPassword(),
+    (req, res, next) => {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+      }
+
+      next();
+    },
     passport.authenticate('signup', { session: false }),
     async (req, res, next) => {
       res.json({

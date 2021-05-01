@@ -1,10 +1,11 @@
 const express = require('express');
 const cors = require('cors');
 const auth = require('./routes/authentication.js');
+const profile = require('./routes/profile.js');
 const app = express();
 const port = 3001;
-
 const mongoose = require('mongoose');
+
 mongoose.connect('mongodb://localhost/network-matching', {useNewUrlParser: true, useUnifiedTopology: true})
   .then((result) =>  app.listen(port, () => {
     console.log(`API is now listening at http://localhost:${port}`)
@@ -21,6 +22,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static('public'));
 app.use('/auth', auth.router);
+app.use('/profile', profile.router);
 
 
 
