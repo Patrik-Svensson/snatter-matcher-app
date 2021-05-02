@@ -1,9 +1,5 @@
 function MainPage() {
-    return(
-        <p>
-            Welcome!
-        </p>
-    )
+  return <p>Welcome!</p>;
 }
 
-export default MainPage 
+export default MainPage;
