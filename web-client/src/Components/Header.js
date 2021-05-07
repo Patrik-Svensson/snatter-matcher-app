@@ -1,10 +1,24 @@
 import React from "react";
-import { Nav, Navbar, Form, Button, FormControl } from "react-bootstrap";
-import { NavLink, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
+
+const headerStyle = {
+  display: "flex",
+  flexDirection: "row",
+  justifyContent: "space-between",
+  alignItems: "center",
+  height: "60px",
+  backgroundColor: "#f5f5f5",
+  boxShadow: "1px 3px 5px #9E9E9E",
+};
+
+const navigationPanelStyle = {
+  display: "flex",
+  width: "10%",
+  justifyContent: "space-around",
+};
 
 function Header(props) {
   function onLogout() {
-    console.log("logout");
     setLogin(false);
     localStorage.removeItem("token");
   }
@@ -16,20 +30,14 @@ function Header(props) {
   let profileLink = <React.Fragment />;
 
   if (isLoggedin) {
-    profileLink = (
-      <Nav.Item>
-        <NavLink to="/profile" className="h5">
-          Profil
-        </NavLink>
-      </Nav.Item>
-    );
+    profileLink = <Link to="/profile">Profil</Link>;
 
     loginButton = (
       <div>
         <Link to="/home">
-          <Button onClick={onLogout} style={{ margin: "0px 10px" }}>
+          <button onClick={onLogout} style={{ margin: "0px 10px" }}>
             Logga ut
-          </Button>
+          </button>
         </Link>
       </div>
     );
@@ -37,46 +45,27 @@ function Header(props) {
     loginButton = (
       <div>
         <Link to="/login">
-          <Button style={{ margin: "0px 10px" }}>Logga in</Button>
+          <button style={{ margin: "0px 10px" }}>Logga in</button>
         </Link>
         <Link to="/signup">
-          <Button style={{ margin: "0px 10px" }}>Registrera dig</Button>
+          <button style={{ margin: "0px 10px" }}>Registrera dig</button>
         </Link>
       </div>
     );
   }
 
   return (
-    <Navbar
-      className="justify-content-between"
-      style={{ backgroundColor: "#f5f5f5", boxShadow: "1px 3px 5px #9E9E9E" }}
-    >
-      <Nav>
-        <Nav.Item>
-          <NavLink to="/home" className="h5">
-            Hem
-          </NavLink>
-        </Nav.Item>
-        <Nav.Item>
-          <NavLink to="/browse" className="h5">
-            Bläddra
-          </NavLink>
-        </Nav.Item>
-      </Nav>
-      <Form inline>
-        <FormControl
-          type="text"
-          placeholder="Search"
-          className="mr-sm-2"
-          style={{ width: 400 }}
-        />
-        <Button variant="outline-success">Search</Button>
-      </Form>
-      <div>
-        {profileLink}
-        {loginButton}
+    <div style={headerStyle}>
+      <div style={navigationPanelStyle}>
+        <div>
+          <Link to="/home">Hem </Link>
+        </div>
+        <div>
+          <Link to="/browse">Bläddra</Link>
+        </div>
       </div>
-    </Navbar>
+      {loginButton}
+    </div>
   );
 }
 

@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const auth = require("./routes/authentication.js");
 const profile = require("./routes/profile.js");
+const morgan = require("morgan");
 const app = express();
 const port = 3001;
 const mongoose = require("mongoose");
@@ -25,6 +26,7 @@ db.once("open", function () {
 });
 
 app.use(cors());
+app.use(morgan("tiny"));
 app.use(express.json());
 app.use(express.static("public"));
 app.use("/auth", auth.router);

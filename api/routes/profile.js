@@ -21,7 +21,7 @@ router.post("/", async function (req, res) {
 
   await User.updateOne({ _id: id }, update);
 
-  return res.send("hej");
+  return res.json(update);
 });
 
 module.exports = { router };
