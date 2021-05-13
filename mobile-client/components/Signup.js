@@ -6,4 +6,3 @@ function Signup() {
 }
 
 export default Signup;
-f;
