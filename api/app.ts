@@ -4,7 +4,7 @@ const auth = require("./routes/authentication.js");
 const profile = require("./routes/profile.js");
 const morgan = require("morgan");
 const app = express();
-const port = 3001;
+const port: number = 3001;
 const mongoose = require("mongoose");
 
 mongoose

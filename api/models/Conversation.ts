@@ -1,7 +1,8 @@
+export {};
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-convesationSchema = new Schema({
+const conversationSchema = new Schema({
   members: {
     type: [mongoose.Schema.Types.ObjectId],
     ref: "User",
@@ -11,3 +12,6 @@ convesationSchema = new Schema({
     ref: "Message",
   },
 });
+
+const Conversation = mongoose.model("Conversation", conversationSchema);
+module.exports = Conversation;

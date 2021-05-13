@@ -1,3 +1,4 @@
+export {};
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const Schema = mongoose.Schema;
@@ -67,7 +68,7 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
-userSchema.methods.isValidPassword = async function (password) {
+userSchema.methods.isValidPassword = async function (password: string) {
   const user = this;
   const compare = await bcrypt.compare(password, user.password);
 

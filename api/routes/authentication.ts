@@ -1,3 +1,4 @@
+export {};
 require("dotenv").config();
 const User = require("../models/User");
 const { body, validationResult, check } = require("express-validator");

@@ -1,3 +1,4 @@
+export {};
 const express = require("express");
 const { update } = require("../models/User");
 const User = require("../models/User");
