@@ -1,10 +1,14 @@
-import React from "react";
+import React, { Profiler } from "react";
 import { StyleSheet, Text, View, Button, TouchableOpacity } from "react-native";
 import { NativeRouter, Route, Link } from "react-router-native";
 import Launch from "./components/Lauch";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
 import Main from "./components/Main";
+import Profile from "./components/Profile";
+import Settings from "./components/Settings";
+import Message from "./components/Message";
+import Search from "./components/Search";
 
 export default function App() {
   return (
@@ -20,6 +24,10 @@ export default function App() {
       <NativeRouter>
         <Route exact path="/main" component={Launch} />
         <Route exact path="/signup" component={Signup} />
+        <Route exact path="/settings" component={Settings} />
+        <Route exact path="/search" component={Search} />
+        <Route exact path="/message" component={Message} />
+        <Route exact path="/profile" component={Profile} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/" component={Main} />
       </NativeRouter>

@@ -44,29 +44,37 @@ function Navbar() {
       }}
     >
       <TouchableOpacity>
-        <Image
-          style={styles.tinyLogo}
-          source={require("../assets/message.png")}
-        />
+        <Link to="/message">
+          <Image
+            style={styles.tinyLogo}
+            source={require("../assets/message.png")}
+          />
+        </Link>
       </TouchableOpacity>
 
       <TouchableOpacity>
-        <Image
-          style={styles.tinyLogo}
-          source={require("../assets/search.png")}
-        />
+        <Link to="/search">
+          <Image
+            style={styles.tinyLogo}
+            source={require("../assets/search.png")}
+          />
+        </Link>
       </TouchableOpacity>
       <TouchableOpacity>
-        <Image
-          style={styles.tinyLogo}
-          source={require("../assets/profile.png")}
-        />
+        <Link to="/profile">
+          <Image
+            style={styles.tinyLogo}
+            source={require("../assets/profile.png")}
+          />
+        </Link>
       </TouchableOpacity>
       <TouchableOpacity>
-        <Image
-          style={styles.tinyLogo}
-          source={require("../assets/settings.png")}
-        />
+        <Link to="/settings">
+          <Image
+            style={styles.tinyLogo}
+            source={require("../assets/settings.png")}
+          />
+        </Link>
       </TouchableOpacity>
     </View>
   );
