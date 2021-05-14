@@ -2,9 +2,9 @@
   "name": "api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/app.js",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "tsc && nodemon app.js"
   },
   "author": "",
   "license": "ISC",

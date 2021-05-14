@@ -1,9 +1,42 @@
 export {};
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
-const Schema = mongoose.Schema;
+import { Schema, Document, Model, model, Types } from "mongoose";
 
-const userSchema = new Schema({
+enum UserStatus {
+  Pending = "pending",
+  Ready = "ready",
+}
+
+enum UserGender {
+  Male = "male",
+  Female = "female",
+}
+
+enum UserOffering {
+  Coaching = "coaching",
+  Mentorship = "mentoship",
+  Networking = "networking",
+}
+
+export interface IUser extends Document {
+  username: string;
+  password: string;
+  status: UserStatus;
+  firstName: string;
+  lastName: string;
+  age: number;
+  gender: UserGender;
+  offers: UserOffering;
+  jobs: string[];
+  educations: string[];
+  networks: Types.ObjectId[];
+  recommendations: Types.ObjectId[];
+  conversations: Types.ObjectId[];
+  isValidPassword(password: string): boolean;
+}
+
+const userSchema: Schema<IUser> = new Schema<IUser>({
   username: {
     type: String,
     unique: true,
@@ -47,33 +80,33 @@ const userSchema = new Schema({
     type: [String],
   },
   networks: {
-    type: [mongoose.Schema.Types.ObjectId],
+    type: [Types.ObjectId],
     ref: "Network",
   },
   recommendations: {
-    type: [mongoose.Schema.Types.ObjectId],
+    type: [Types.ObjectId],
     ref: "User",
   },
   conversations: {
-    type: [mongoose.Schema.Types.ObjectId],
+    type: [Types.ObjectId],
     ref: "Conversation",
   },
 });
 
-userSchema.pre("save", async function (next) {
-  const user = this;
-  const hash = await bcrypt.hash(this.password, 10);
-
+userSchema.pre<IUser>("save", async function (next: any) {
+  const hash: any = await bcrypt.hash(this.password, 10);
   this.password = hash;
   next();
 });
 
-userSchema.methods.isValidPassword = async function (password: string) {
-  const user = this;
-  const compare = await bcrypt.compare(password, user.password);
+userSchema.method(
+  "isValidPassword",
+  async function (password: string): Promise<boolean> {
+    const compare = await bcrypt.compare(password, this.password);
 
-  return compare;
-};
+    return compare;
+  }
+);
 
-const User = mongoose.model("User", userSchema);
+const User: Model<IUser> = model("User", userSchema);
 module.exports = User;

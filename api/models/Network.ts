@@ -1,6 +1,10 @@
 export {};
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+import { Schema, Document, Model, model, Types } from "mongoose";
+
+export interface INetwork extends Document {
+  name: string;
+  users: Types.ObjectId[];
+}
 
 const networkSchema = new Schema({
   name: {
@@ -9,10 +13,10 @@ const networkSchema = new Schema({
     unique: true,
   },
   users: {
-    type: [mongoose.Schema.Types.ObjectId],
+    type: [Types.ObjectId],
     ref: "User",
   },
 });
 
-const Network = mongoose.model("Network", networkSchema);
+const Network: Model<INetwork> = model("Network", networkSchema);
 module.exports = Network;

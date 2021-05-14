@@ -5,16 +5,16 @@ const User = require("../models/User");
 
 let router = express.Router();
 
-router.get("/", async function (req, res) {
-  const username = req.query.username;
+router.get("/", async function (req: any, res: any) {
+  const username: string = req.query.username;
   const user = await User.findOne({ username: username });
 
   res.json(user);
 });
 
-router.post("/", async function (req, res) {
+router.post("/", async function (req: any, res: any) {
   const id = req.body._id;
-  const age = req.body.age;
+  const age: number = req.body.age;
 
   delete req.body.username;
 

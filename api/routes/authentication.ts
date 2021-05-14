@@ -1,9 +1,10 @@
+import { IUser } from "../models/User";
+
 export {};
 require("dotenv").config();
 const User = require("../models/User");
 const { body, validationResult, check } = require("express-validator");
 const express = require("express");
-const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 let router = express.Router();
 
@@ -17,7 +18,7 @@ passport.use(
       usernameField: "username",
       passwordField: "password",
     },
-    async (username, password, done) => {
+    async (username: string, password: string, done: any) => {
       try {
         const user = await User.create({ username, password });
 
@@ -36,15 +37,15 @@ passport.use(
       usernameField: "username",
       passwordField: "password",
     },
-    async (username, password, done) => {
+    async (username: string, password: string, done: any) => {
       try {
-        const user = await User.findOne({ username });
+        const user: IUser = await User.findOne({ username });
 
         if (!user) {
           return done(null, false, { message: "User not found" });
         }
 
-        const validate = await user.isValidPassword(password);
+        const validate = user.isValidPassword(password);
 
         if (!validate) {
           return done(null, false, { message: "Wrong Password" });
@@ -62,7 +63,7 @@ router.post(
   "/signup",
   body("username").isEmail(),
   body("password").isStrongPassword(),
-  (req, res, next) => {
+  (req: any, res: any, next: any) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
@@ -70,14 +71,14 @@ router.post(
 
     next();
   },
-  (req, res, next) => {
+  (req: any, res: any, next: any) => {
     try {
       passport.authenticate("signup", { session: false });
     } catch (err) {
       console.log(err);
     }
   },
-  async (req, res, next) => {
+  async (req: any, res: any, next: any) => {
     res.json({
       message: "Signup successful",
       user: req.user,
@@ -85,8 +86,8 @@ router.post(
   }
 );
 
-router.post("/login", async (req, res, next) => {
-  passport.authenticate("login", async (err, user, info) => {
+router.post("/login", async (req: any, res: any, next: any) => {
+  passport.authenticate("login", async (err: any, user: any, info: any) => {
     try {
       if (err || !user) {
         const error = new Error("An error occurred.");
@@ -94,7 +95,7 @@ router.post("/login", async (req, res, next) => {
         return next(error);
       }
 
-      req.login(user, { session: false }, async (error) => {
+      req.login(user, { session: false }, async (error: any) => {
         if (error) return next(error);
 
         const body = { _id: user._id, email: user.username };
