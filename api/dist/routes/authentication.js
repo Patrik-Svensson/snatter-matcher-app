@@ -13,20 +13,18 @@ require("dotenv").config();
 const User = require("../models/User");
 const { body, validationResult, check } = require("express-validator");
 const express = require("express");
-const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 let router = express.Router();
 const passport = require("passport");
 const localStrategy = require("passport-local").Strategy;
-passport.use("signup", new localStrategy({
-    usernameField: "username",
-    passwordField: "password",
-}, (username, password, done) => __awaiter(void 0, void 0, void 0, function* () {
+passport.use("signup", new localStrategy((username, password, done) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const user = yield User.create({ username, password });
+        console.log("created");
         return done(null, user);
     }
     catch (error) {
+        console.log(error);
         done(error);
     }
 })));
@@ -39,7 +37,7 @@ passport.use("login", new localStrategy({
         if (!user) {
             return done(null, false, { message: "User not found" });
         }
-        const validate = yield user.isValidPassword(password);
+        const validate = user.isValidPassword(password);
         if (!validate) {
             return done(null, false, { message: "Wrong Password" });
         }
@@ -55,14 +53,7 @@ router.post("/signup", body("username").isEmail(), body("password").isStrongPass
         return res.status(400).json({ errors: errors.array() });
     }
     next();
-}, (req, res, next) => {
-    try {
-        passport.authenticate("signup", { session: false });
-    }
-    catch (err) {
-        console.log(err);
-    }
-}, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+}, passport.authenticate("signup", { session: false }), (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     res.json({
         message: "Signup successful",
         user: req.user,

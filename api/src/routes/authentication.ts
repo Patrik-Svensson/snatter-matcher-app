@@ -1,33 +1,26 @@
 import { IUser } from "../models/User";
-
-export {};
 require("dotenv").config();
 const User = require("../models/User");
 const { body, validationResult, check } = require("express-validator");
 const express = require("express");
 const jwt = require("jsonwebtoken");
 let router = express.Router();
-
 const passport = require("passport");
+
 const localStrategy = require("passport-local").Strategy;
 
 passport.use(
   "signup",
-  new localStrategy(
-    {
-      usernameField: "username",
-      passwordField: "password",
-    },
-    async (username: string, password: string, done: any) => {
-      try {
-        const user = await User.create({ username, password });
-
-        return done(null, user);
-      } catch (error) {
-        done(error);
-      }
+  new localStrategy(async (username: string, password: string, done: any) => {
+    try {
+      const user = await User.create({ username, password });
+      console.log("created");
+      return done(null, user);
+    } catch (error) {
+      console.log(error);
+      done(error);
     }
-  )
+  })
 );
 
 passport.use(
@@ -68,16 +61,9 @@ router.post(
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-
     next();
   },
-  (req: any, res: any, next: any) => {
-    try {
-      passport.authenticate("signup", { session: false });
-    } catch (err) {
-      console.log(err);
-    }
-  },
+  passport.authenticate("signup", { session: false }),
   async (req: any, res: any, next: any) => {
     res.json({
       message: "Signup successful",
