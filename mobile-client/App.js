@@ -18,10 +18,10 @@ export default function App() {
         Asnatt
       </Text>
       <NativeRouter>
-        <Route exact path="/" component={Launch} />
+        <Route exact path="/main" component={Launch} />
         <Route exact path="/signup" component={Signup} />
         <Route exact path="/login" component={Login} />
-        <Route exact path="/main" component={Main} />
+        <Route exact path="/" component={Main} />
       </NativeRouter>
     </View>
   );

@@ -1,8 +1,19 @@
 import React from "react";
-import { Text } from "react-native";
+import { View } from "react-native";
+import Navbar from "./Navbar";
 
 function Main() {
-  return <Text>Main</Text>;
+  return (
+    <View
+      style={{
+        flex: 1,
+        alignSelf: "stretch",
+        justifyContent: "flex-end",
+      }}
+    >
+      <Navbar />
+    </View>
+  );
 }
 
 export default Main;
