@@ -1,5 +1,6 @@
 import React from "react";
 import { TouchableOpacity, View, StyleSheet, Text } from "react-native";
+import { Link } from "react-router-native";
 
 function Launch() {
   return (
@@ -12,10 +13,14 @@ function Launch() {
       }}
     >
       <TouchableOpacity style={styles.button}>
-        <Text style={styles.buttonText}>Gå Med</Text>
+        <Link to="/signup">
+          <Text style={styles.buttonText}>Gå Med</Text>
+        </Link>
       </TouchableOpacity>
       <TouchableOpacity style={{ ...styles.button, marginBottom: 50 }}>
-        <Text style={styles.buttonText}>Logga In</Text>
+        <Link to="/login">
+          <Text style={styles.buttonText}>Logga In</Text>
+        </Link>
       </TouchableOpacity>
     </View>
   );

@@ -14,7 +14,6 @@ passport.use(
   new localStrategy(async (username: string, password: string, done: any) => {
     try {
       const user = await User.create({ username, password });
-      console.log("created");
       return done(null, user);
     } catch (error) {
       console.log(error);

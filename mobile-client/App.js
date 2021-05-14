@@ -4,6 +4,7 @@ import { NativeRouter, Route, Link } from "react-router-native";
 import Launch from "./components/Lauch";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
+import Main from "./components/Main";
 
 export default function App() {
   return (
@@ -20,6 +21,7 @@ export default function App() {
         <Route exact path="/" component={Launch} />
         <Route exact path="/signup" component={Signup} />
         <Route exact path="/login" component={Login} />
+        <Route exact path="/main" component={Main} />
       </NativeRouter>
     </View>
   );
