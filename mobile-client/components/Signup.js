@@ -1,12 +1,13 @@
 import { resolveUri } from "expo-asset/build/AssetSources";
 import React from "react";
 import { useState } from "react";
-import { Redirect } from "react-router-native";
+import { Redirect, Link } from "react-router-native";
 import {
   TextInput,
   TouchableOpacity,
   View,
   Text,
+  Image,
   StyleSheet,
 } from "react-native";
 
@@ -42,6 +43,7 @@ function Signup() {
   ) : (
     <TextInput
       style={styles.input}
+      secureTextEntry={true}
       placeholder="lösenord"
       onChangeText={setPassword}
       value={password}
@@ -65,15 +67,33 @@ function Signup() {
     <View
       style={{
         flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
         alignSelf: "stretch",
       }}
     >
-      {redirectElement}
-      <Text style={{ fontSize: 33, marginBottom: 40 }}>Gå med i Asnatt</Text>
-      {inputElement}
-      {buttonElement}
+      <Link to="/">
+        <Image
+          source={require("../assets/back.png")}
+          style={{
+            height: 30,
+            width: 30,
+            alignSelf: "flex-end",
+            marginRight: 20,
+          }}
+        />
+      </Link>
+      <View
+        style={{
+          flex: 1,
+          alignItems: "center",
+          justifyContent: "center",
+          marginBottom: 180,
+        }}
+      >
+        {redirectElement}
+        <Text style={{ fontSize: 33, marginBottom: 40 }}>Gå med i Asnatt</Text>
+        {inputElement}
+        {buttonElement}
+      </View>
     </View>
   );
 }

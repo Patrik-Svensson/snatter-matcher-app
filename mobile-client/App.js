@@ -22,14 +22,14 @@ export default function App() {
         Asnatt
       </Text>
       <NativeRouter>
-        <Route exact path="/main" component={Launch} />
+        <Route exact path="/" component={Launch} />
         <Route exact path="/signup" component={Signup} />
         <Route exact path="/settings" component={Settings} />
         <Route exact path="/search" component={Search} />
         <Route exact path="/message" component={Message} />
         <Route exact path="/profile" component={Profile} />
         <Route exact path="/login" component={Login} />
-        <Route exact path="/" component={Main} />
+        <Route exact path="/main" component={Main} />
       </NativeRouter>
     </View>
   );
