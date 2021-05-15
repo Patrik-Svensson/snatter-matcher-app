@@ -2,6 +2,7 @@ import { func } from "prop-types";
 import React from "react";
 import { useState } from "react";
 import { Link, Redirect } from "react-router-native";
+import * as SecureStore from "expo-secure-store";
 import {
   TextInput,
   TouchableOpacity,
@@ -25,11 +26,20 @@ function Login() {
         username: email,
         password: password,
       }),
-    }).then((response) => {
-      if (response.ok) {
-        setRedirect(true);
-      }
-    });
+    })
+      .then((response) => {
+        if (response.ok) {
+          setRedirect(true);
+          return response.json();
+        }
+      })
+      .then(async (data) => {
+        const token = data.token;
+        console.log(token);
+        await SecureStore.setItemAsync("secure_token", token);
+        const token_ret = await SecureStore.getItemAsync("secure_token");
+        console.log(token_ret); // output: sahdkfjaskdflas$%^&
+      });
   }
 
   var redirectElement = redirect ? <Redirect to="/Main" /> : <React.Fragment />;

@@ -1,5 +1,6 @@
 import { resolveUri } from "expo-asset/build/AssetSources";
 import React from "react";
+import * as SecureStore from "expo-secure-store";
 import { useState } from "react";
 import { Redirect, Link } from "react-router-native";
 import {
@@ -25,11 +26,17 @@ function Signup() {
         username: email,
         password: password,
       }),
-    }).then((response) => {
-      if (response.ok) {
-        setRedirect(true);
-      }
-    });
+    })
+      .then((response) => {
+        if (response.ok) {
+          setRedirect(true);
+          return response.json();
+        }
+      })
+      .then((data) => {
+        const token = data.token;
+        await SecureStore.setItemAsync("secure_token", token);
+      });
   }
 
   var redirectElement = redirect ? <Redirect to="/Main" /> : <React.Fragment />;

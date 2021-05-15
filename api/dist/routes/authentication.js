@@ -20,7 +20,6 @@ const localStrategy = require("passport-local").Strategy;
 passport.use("signup", new localStrategy((username, password, done) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const user = yield User.create({ username, password });
-        console.log("created");
         return done(null, user);
     }
     catch (error) {
