@@ -80,6 +80,7 @@ router.post(
           return res.json({ message: "signup success", token: token });
         });
       } catch (error) {
+        console.log("Spagetti!");
         return next(error);
       }
     })(req, res, next);

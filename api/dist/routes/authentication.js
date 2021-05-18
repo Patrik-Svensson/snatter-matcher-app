@@ -68,6 +68,7 @@ router.post("/signup", body("username").isEmail(), body("password").isStrongPass
             }));
         }
         catch (error) {
+            console.log("Spagetti!");
             return next(error);
         }
     }))(req, res, next);

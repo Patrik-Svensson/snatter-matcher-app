@@ -17,9 +17,7 @@ const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server);
 io.on("connection", (socket) => {
-    console.log("connected");
     socket.on("chat message", (msg) => {
-        console.log("tjaba");
         io.emit("chat message", msg);
     });
 });
@@ -44,6 +42,7 @@ app.use(express.static("public"));
 app.use("/auth", auth.router);
 app.use("/profile", profile.router);
 app.use("/message", message.router);
+// Only messaging testing
 app.get("/", (req, res) => {
     res.sendFile(__dirname + "/index.html");
 });
