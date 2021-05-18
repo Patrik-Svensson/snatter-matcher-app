@@ -35,10 +35,7 @@ function Login() {
       })
       .then(async (data) => {
         const token = data.token;
-        console.log(token);
         await SecureStore.setItemAsync("secure_token", token);
-        const token_ret = await SecureStore.getItemAsync("secure_token");
-        console.log(token_ret); // output: sahdkfjaskdflas$%^&
       });
   }
 

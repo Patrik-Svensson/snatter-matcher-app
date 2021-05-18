@@ -33,7 +33,7 @@ function Signup() {
           return response.json();
         }
       })
-      .then((data) => {
+      .then(async (data) => {
         const token = data.token;
         await SecureStore.setItemAsync("secure_token", token);
       });
