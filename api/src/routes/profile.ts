@@ -19,7 +19,6 @@ router.post("/", async function (req: any, res: any) {
   delete req.body.username;
 
   const update = req.body;
-
   await User.updateOne({ _id: id }, update);
 
   return res.json(update);

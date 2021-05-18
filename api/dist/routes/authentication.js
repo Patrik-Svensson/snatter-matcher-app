@@ -53,10 +53,24 @@ router.post("/signup", body("username").isEmail(), body("password").isStrongPass
     }
     next();
 }, passport.authenticate("signup", { session: false }), (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    res.json({
-        message: "Signup successful",
-        user: req.user,
-    });
+    passport.authenticate("login", (err, user, info) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            if (err || !user) {
+                const error = new Error("An error occurred.");
+                return next(error);
+            }
+            req.login(user, { session: false }, (error) => __awaiter(void 0, void 0, void 0, function* () {
+                if (error)
+                    return next(error);
+                const body = { _id: user._id, email: user.username };
+                const token = jwt.sign({ user: body }, "TOP_SECRET");
+                return res.json({ message: "signup success", token: token });
+            }));
+        }
+        catch (error) {
+            return next(error);
+        }
+    }))(req, res, next);
 }));
 router.post("/login", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     passport.authenticate("login", (err, user, info) => __awaiter(void 0, void 0, void 0, function* () {
