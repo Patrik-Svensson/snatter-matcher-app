@@ -12,6 +12,8 @@ import {
   StyleSheet,
 } from "react-native";
 
+const SIGNUP_URL = "http://localhost:3001/auth/signup";
+
 function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -19,7 +21,7 @@ function Signup() {
   const [redirect, setRedirect] = useState(false);
 
   function signupRequest() {
-    fetch("http://localhost:3001/auth/signup", {
+    fetch(SIGNUP_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
