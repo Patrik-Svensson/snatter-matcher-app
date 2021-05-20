@@ -6,108 +6,61 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 let router = express.Router();
 const passport = require("passport");
+const fs = require("fs");
+const LocalStrategy = require("passport-local").Strategy;
 
-const localStrategy = require("passport-local").Strategy;
+const DEV_MODE = true;
+
+const PRIVATE_KEY = DEV_MODE
+  ? "private_key_dummy"
+  : fs.readFileSync("private.key");
 
 passport.use(
-  "signup",
-  new localStrategy(async (username: string, password: string, done: any) => {
-    try {
-      const user = await User.create({ username, password });
-      return done(null, user);
-    } catch (error) {
-      console.log(error);
-      done(error);
-    }
+  new LocalStrategy(function (username: string, password: string, done: any) {
+    User.findOne(
+      { username: username },
+      async function (err: any, user: IUser) {
+        if (err) {
+          return done(err);
+        }
+        if (!user) {
+          return done(null, false, { message: "Incorrect username." });
+        }
+        const isValidPassword = await user.isValidPassword(password);
+        if (!isValidPassword) {
+          return done(null, false, { message: "Incorrect password." });
+        }
+        return done(null, user);
+      }
+    );
   })
 );
 
-passport.use(
-  "login",
-  new localStrategy(
-    {
-      usernameField: "username",
-      passwordField: "password",
-    },
-    async (username: string, password: string, done: any) => {
-      try {
-        const user: IUser = await User.findOne({ username });
-
-        if (!user) {
-          return done(null, false, { message: "User not found" });
-        }
-
-        const validate = user.isValidPassword(password);
-
-        if (!validate) {
-          return done(null, false, { message: "Wrong Password" });
-        }
-
-        return done(null, user, { message: "Logged in Successfully" });
-      } catch (error) {
-        return done(error);
-      }
-    }
-  )
+router.post(
+  "/login",
+  passport.authenticate("local", { session: false }),
+  function (req: any, res: any, next: any) {
+    const token = jwt.sign({ user: body }, PRIVATE_KEY);
+    return res.json({ token });
+  }
 );
 
 router.post(
   "/signup",
   body("username").isEmail(),
   body("password").isStrongPassword(),
-  (req: any, res: any, next: any) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+  async function (req: any, res: any, next: any) {
+    try {
+      await User.create({
+        username: req.body.username,
+        password: req.body.password,
+      });
+    } catch {
+      return next();
     }
-    next();
-  },
-  passport.authenticate("signup", { session: false }),
-  async (req: any, res: any, next: any) => {
-    passport.authenticate("login", async (err: any, user: any, info: any) => {
-      try {
-        if (err || !user) {
-          const error = new Error("An error occurred.");
 
-          return next(error);
-        }
-
-        req.login(user, { session: false }, async (error: any) => {
-          if (error) return next(error);
-          const body = { _id: user._id, email: user.username };
-          const token = jwt.sign({ user: body }, "TOP_SECRET");
-
-          return res.json({ message: "signup success", token: token });
-        });
-      } catch (error) {
-        console.log("Spagetti!");
-        return next(error);
-      }
-    })(req, res, next);
+    res.redirect(307, "/auth/login");
   }
 );
-
-router.post("/login", async (req: any, res: any, next: any) => {
-  passport.authenticate("login", async (err: any, user: any, info: any) => {
-    try {
-      if (err || !user) {
-        const error = new Error("An error occurred.");
-
-        return next(error);
-      }
-
-      req.login(user, { session: false }, async (error: any) => {
-        if (error) return next(error);
-
-        const body = { _id: user._id, email: user.username };
-        const token = jwt.sign({ user: body }, "TOP_SECRET");
-
-        return res.json({ token });
-      });
-    } catch (error) {
-      return next(error);
-    }
-  })(req, res, next);
-});
 
 module.exports = { router };

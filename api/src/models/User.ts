@@ -33,7 +33,7 @@ export interface IUser extends Document {
   networks: Types.ObjectId[];
   recommendations: Types.ObjectId[];
   conversations: Types.ObjectId[];
-  isValidPassword(password: string): boolean;
+  isValidPassword(password: string): Promise<boolean>;
 }
 
 const userSchema: Schema<IUser> = new Schema<IUser>({
@@ -103,7 +103,7 @@ userSchema.method(
   "isValidPassword",
   async function (password: string): Promise<boolean> {
     const compare = await bcrypt.compare(password, this.password);
-
+    console.log(compare);
     return compare;
   }
 );
