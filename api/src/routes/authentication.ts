@@ -5,15 +5,33 @@ const { body, validationResult, check } = require("express-validator");
 const express = require("express");
 const jwt = require("jsonwebtoken");
 let router = express.Router();
+var JwtStrategy = require("passport-jwt").Strategy;
 const passport = require("passport");
 const fs = require("fs");
 const LocalStrategy = require("passport-local").Strategy;
+var JwtStrategy = require("passport-jwt").Strategy,
+  ExtractJwt = require("passport-jwt").ExtractJwt;
 
 const DEV_MODE = true;
 
 const PRIVATE_KEY = DEV_MODE
   ? "private_key_dummy"
   : fs.readFileSync("private.key");
+
+var opts = {
+  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+  secretOrKey: PRIVATE_KEY,
+};
+
+passport.use(
+  new JwtStrategy(opts, (token: any, done: any) => {
+    try {
+      return done(null, token.user);
+    } catch (error) {
+      done(error);
+    }
+  })
+);
 
 passport.use(
   new LocalStrategy(function (username: string, password: string, done: any) {
@@ -39,7 +57,10 @@ passport.use(
 router.post(
   "/login",
   passport.authenticate("local", { session: false }),
-  function (req: any, res: any, next: any) {
+  async function (req: any, res: any, next: any) {
+    const user: any = await User.findOne({ username: req.body.username });
+
+    const body = { _id: user._id, username: user.username };
     const token = jwt.sign({ user: body }, PRIVATE_KEY);
     return res.json({ token });
   }
@@ -50,6 +71,11 @@ router.post(
   body("username").isEmail(),
   body("password").isStrongPassword(),
   async function (req: any, res: any, next: any) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return next();
+    }
+
     try {
       await User.create({
         username: req.body.username,

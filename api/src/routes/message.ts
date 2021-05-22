@@ -2,12 +2,15 @@ const express = require("express");
 const passport = require("passport");
 let router = express.Router();
 const Message = require("../models/Message");
+var JwtStrategy = require("passport-jwt").Strategy,
+  ExtractJwt = require("passport-jwt").ExtractJwt;
 
 router.get(
   "/",
-  passport.authenticate("local"),
-  async function (req: any, res: any) {
-    await Message.findMany({});
+  passport.authenticate("jwt", { session: false }),
+  function (req: any, res: any) {
+    //var hej = ExtractJwt.fromHeader("authorization");
+    res.send("success");
   }
 );
 

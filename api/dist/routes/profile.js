@@ -12,8 +12,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express = require("express");
 const { update } = require("../models/User");
 const User = require("../models/User");
+const passport = require("passport");
 let router = express.Router();
-router.get("/", function (req, res, next) {
+router.get("/", passport.authenticate("jwt", { session: false }), function (req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         const username = req.query.username;
         User.findOne({ username: username }, function (err, user) {
@@ -24,7 +25,7 @@ router.get("/", function (req, res, next) {
         });
     });
 });
-router.post("/", function (req, res, next) {
+router.post("/", passport.authenticate("jwt", { session: false }), function (req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         const id = req.body._id;
         const age = req.body.age;
