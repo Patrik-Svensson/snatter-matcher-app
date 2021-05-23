@@ -14,12 +14,12 @@ function Launch() {
     >
       <TouchableOpacity style={styles.button}>
         <Link to="/signup">
-          <Text style={styles.buttonText}>Gå Med</Text>
+          <Text style={styles.buttonText}>Create an account</Text>
         </Link>
       </TouchableOpacity>
-      <TouchableOpacity style={{ ...styles.button, marginBottom: 50 }}>
+      <TouchableOpacity style={{ ...styles.button, marginBottom: 100 }}>
         <Link to="/login">
-          <Text style={styles.buttonText}>Logga In</Text>
+          <Text style={styles.buttonText}>Log in</Text>
         </Link>
       </TouchableOpacity>
     </View>
@@ -35,24 +35,26 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: "#FFA940",
-    width: "70%",
+    minWidth: "70%",
+    minHeight: "1%",
     margin: 10,
     padding: 15,
     borderRadius: 30,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 5,
-    },
-    shadowOpacity: 0.36,
-    shadowRadius: 6.68,
+    borderRadius: 9,
+    // shadowColor: "#000",
+    // shadowOffset: {
+    //   width: 0,
+    //   height: 5,
+    // },
+    // shadowOpacity: 0.36,
+    // shadowRadius: 6.68,
 
     elevation: 11,
   },
   buttonText: {
     textAlign: "center",
     fontSize: 30,
-    color: "black",
+    color: "#fff",
   },
 });
 
