@@ -18,17 +18,6 @@ export default function App() {
         alignItems: "center",
       }}
     >
-      <Text
-        style={{
-          marginTop: 210,
-          fontSize: 50,
-          fontWeight: "bold",
-          color: "#FFA940",
-          // fontFamily: Roboto,
-        }}
-      >
-        Asnatt
-      </Text>
       <NativeRouter>
         <Route exact path="/" component={Launch} />
         <Route exact path="/signup" component={Signup} />

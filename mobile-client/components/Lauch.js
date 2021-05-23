@@ -12,6 +12,19 @@ function Launch() {
         justifyContent: "flex-end",
       }}
     >
+      <Text
+        style={{
+          flex: 1,
+          alignItems: "center",
+          marginTop: 210,
+          fontSize: 50,
+          fontWeight: "bold",
+          color: "#FFA940",
+          // fontFamily: Roboto,
+        }}
+      >
+        Asnatt
+      </Text>
       <TouchableOpacity style={styles.button}>
         <Link to="/signup">
           <Text style={styles.buttonText}>Create an account</Text>
@@ -48,7 +61,6 @@ const styles = StyleSheet.create({
     // },
     // shadowOpacity: 0.36,
     // shadowRadius: 6.68,
-
     elevation: 11,
   },
   buttonText: {
