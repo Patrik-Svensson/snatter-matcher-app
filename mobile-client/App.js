@@ -20,9 +20,6 @@ export default function App() {
         alignItems: "center",
       }}
     >
-      <Text style={{ marginTop: 50, fontSize: 50, color: "#FFA940" }}>
-        Asnatt
-      </Text>
       <NativeRouter>
         <Route exact path="/conversation">
           <Conversations jwt={jwt} />
@@ -56,10 +53,10 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: "#FFA940",
-    width: "70%",
+    minWidth: "70%",
     margin: 10,
     padding: 10,
-    borderRadius: 20,
+    borderRadius: 9,
   },
   buttonText: {
     fontSize: 30,
