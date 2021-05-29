@@ -5,6 +5,7 @@ const passport = require("passport");
 const auth = require("./routes/authentication.js");
 const profile = require("./routes/profile.js");
 const message = require("./routes/message.js");
+const conversation = require("./routes/conversation.js");
 const morgan = require("morgan");
 import mongoose from "mongoose";
 const { Server } = require("socket.io");
@@ -37,6 +38,7 @@ mongoose
     app.use("/auth", auth.router);
     app.use("/profile", profile.router);
     app.use("/message", message.router);
+    app.use("/conversation", conversation.router);
 
     // ONLY FOR CHAT TESTING
     app.get("/", (req: any, res: any) => {

@@ -5,12 +5,11 @@ const { body, validationResult, check } = require("express-validator");
 const express = require("express");
 const jwt = require("jsonwebtoken");
 let router = express.Router();
-var JwtStrategy = require("passport-jwt").Strategy;
 const passport = require("passport");
 const fs = require("fs");
-const LocalStrategy = require("passport-local").Strategy;
 var JwtStrategy = require("passport-jwt").Strategy,
   ExtractJwt = require("passport-jwt").ExtractJwt;
+const LocalStrategy = require("passport-local").Strategy;
 
 const DEV_MODE = true;
 
@@ -30,6 +29,21 @@ passport.use(
     } catch (error) {
       done(error);
     }
+  })
+);
+
+passport.use(
+  new JwtStrategy(opts, function (jwt_payload: any, done: any) {
+    User.findOne({ id: jwt_payload.sub }, function (err: any, user: any) {
+      if (err) {
+        return done(err, false);
+      }
+      if (user) {
+        return done(null, user);
+      } else {
+        return done(null, false);
+      }
+    });
   })
 );
 
@@ -61,6 +75,7 @@ router.post(
     const user: any = await User.findOne({ username: req.body.username });
 
     const body = { _id: user._id, username: user.username };
+    console.log(body);
     const token = jwt.sign({ user: body }, PRIVATE_KEY);
     return res.json({ token });
   }

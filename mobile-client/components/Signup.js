@@ -21,6 +21,7 @@ function Signup() {
   const [redirect, setRedirect] = useState(false);
 
   function signupRequest() {
+    console.log(email);
     fetch(SIGNUP_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },

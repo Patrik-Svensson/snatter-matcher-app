@@ -1,4 +1,4 @@
-import React, { Profiler } from "react";
+import React, { Profiler, useState } from "react";
 import { StyleSheet, Text, View, Button, TouchableOpacity } from "react-native";
 import { NativeRouter, Route, Link } from "react-router-native";
 import Launch from "./components/Lauch";
@@ -9,8 +9,10 @@ import Profile from "./components/Profile";
 import Settings from "./components/Settings";
 import Message from "./components/Message";
 import Search from "./components/Search";
+import Conversations from "./components/Conversations";
 
 export default function App() {
+  [jwt, setJwt] = useState("");
   return (
     <View
       style={{
@@ -22,13 +24,23 @@ export default function App() {
         Asnatt
       </Text>
       <NativeRouter>
-        <Route exact path="/" component={Launch} />
+        <Route exact path="/conversation">
+          <Conversations jwt={jwt} />
+        </Route>
         <Route exact path="/signup" component={Signup} />
-        <Route exact path="/settings" component={Settings} />
-        <Route exact path="/search" component={Search} />
-        <Route exact path="/message" component={Message} />
-        <Route exact path="/profile" component={Profile} />
-        <Route exact path="/login" component={Login} />
+        <Route exact path="/settings">
+          <Settings jwt={jwt} />
+        </Route>
+        <Route exact path="/search">
+          <Search jwt={jwt} />
+        </Route>
+        <Route exact path="/" component={Launch} />
+        <Route exact path="/profile">
+          <Profile />
+        </Route>
+        <Route exact path="/login">
+          <Login setJwt={setJwt} />
+        </Route>
         <Route exact path="/main" component={Main} />
       </NativeRouter>
     </View>

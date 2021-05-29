@@ -44,7 +44,7 @@ function Navbar() {
       }}
     >
       <TouchableOpacity>
-        <Link to="/message">
+        <Link to="/conversation">
           <Image
             style={styles.tinyLogo}
             source={require("../assets/message.png")}

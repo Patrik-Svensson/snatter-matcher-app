@@ -14,13 +14,15 @@ import {
 
 const LOGIN_URL = "http://localhost:3001/auth/login";
 
-function Login() {
+function Login(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [inputEmail, setInputEmail] = useState(true);
   const [redirect, setRedirect] = useState(false);
 
-  function signupRequest() {
+  const setJwt = props["setJwt"];
+
+  function loginRequest() {
     fetch(LOGIN_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -38,6 +40,7 @@ function Login() {
       .then(async (data) => {
         const token = data.token;
         await SecureStore.setItemAsync("secure_token", token);
+        setJwt(token);
       });
   }
 
@@ -67,7 +70,7 @@ function Login() {
       <Text style={styles.buttonText}>Fortsätt</Text>
     </TouchableOpacity>
   ) : (
-    <TouchableOpacity style={styles.button} onPress={signupRequest}>
+    <TouchableOpacity style={styles.button} onPress={loginRequest}>
       <Text style={styles.buttonText}>Fortsätt</Text>
     </TouchableOpacity>
   );

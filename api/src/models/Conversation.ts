@@ -21,4 +21,5 @@ const Conversation: Model<IConversation> = model(
   "Conversation",
   conversationSchema
 );
+
 module.exports = Conversation;

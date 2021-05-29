@@ -1,9 +1,30 @@
-/*const express = require("express");
+export {};
+const express = require("express");
 const passport = require("passport");
 let router = express.Router();
-const Message = require("../models/Message
+const Conversation = require("../models/Conversation");
 
+router.get(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  function (req: any, res: any, next: any) {
+    const conversations = [
+      {
+        id: 1,
+        name: "Patrik Svensson",
+        lastMessage: "hej",
+        image: "/stock-profile.jpeg",
+      },
+      {
+        id: 2,
+        name: "Sebastian Nylén",
+        lastMessage: "Errrrru go eller?",
+        image: "/stock-profile.jpeg",
+      },
+    ];
 
-router.get("/", passport.authenticate("local"), function(req, res, next) {
-    console.log(req.body);
-});*/
+    res.json(conversations);
+  }
+);
+
+module.exports = { router };
