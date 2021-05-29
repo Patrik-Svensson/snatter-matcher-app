@@ -10,13 +10,13 @@ router.get(
   "/",
   passport.authenticate("jwt", { session: false }),
   async function (req: any, res: any, next: any) {
-    const username: string = req.query.username;
-    User.findOne({ username: username }, function (err: any, user: any) {
+    User.find({}, function (err: any, users: any) {
       if (err) {
         next();
       }
-
-      res.json(user);
+      console.log(users);
+      console.log("hej");
+      res.json(users);
     });
   }
 );

@@ -16,12 +16,13 @@ const passport = require("passport");
 let router = express.Router();
 router.get("/", passport.authenticate("jwt", { session: false }), function (req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
-        const username = req.query.username;
-        User.findOne({ username: username }, function (err, user) {
+        User.find({}, function (err, users) {
             if (err) {
                 next();
             }
-            res.json(user);
+            console.log(users);
+            console.log("hej");
+            res.json(users);
         });
     });
 });
