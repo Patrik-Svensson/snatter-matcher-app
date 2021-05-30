@@ -9,27 +9,12 @@ router.get(
   "/",
   passport.authenticate("jwt", { session: false }),
   async function (req: any, res: any, next: any) {
-    /*const conversations = [
-      {
-        id: 1,
-        name: "Patrik Svensson",
-        lastMessage: "hej",
-        image: "/stock-profile.jpeg",
-      },
-      {
-        id: 2,
-        name: "Sebastian Nylén",
-        lastMessage: "Errrrru go eller?",
-        image: "/stock-profile.jpeg",
-      },
-    ];*/
-
     const user = req.user;
-    const conversations = await Conversation.find({ members: user._id });
+    const conversations = await Conversation.find({
+      members: user._id,
+    }).populate("messages");
 
-    //const conversations: any = await Conversation.findOne({});
-
-    res.json(conversations);
+    return res.json(conversations);
   }
 );
 
@@ -40,10 +25,10 @@ router.post(
     const user = req.user;
     const addedMembers = req.body.addedMembers.map((user: any) => user._id);
     const members = addedMembers.push(user._id);
-    console.log(members);
-    //const conversation = await Conversation.create({ members: members });
 
-    res.json({});
+    const conversation = await Conversation.create({ members: members });
+
+    return res.json({ conversation });
   }
 );
 

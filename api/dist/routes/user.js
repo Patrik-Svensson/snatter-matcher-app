@@ -10,27 +10,35 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express = require("express");
+const { update } = require("../models/User");
+const User = require("../models/User");
 const passport = require("passport");
 let router = express.Router();
-const Conversation = require("../models/Conversation");
-const User = require("../models/User");
 router.get("/", passport.authenticate("jwt", { session: false }), function (req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
-        const user = req.user;
-        const conversations = yield Conversation.find({
-            members: user._id,
-        }).populate("messages");
-        return res.json(conversations);
+        User.find({}, function (err, users) {
+            if (err) {
+                next();
+            }
+            console.log(users);
+            console.log("hej");
+            res.json(users);
+        });
     });
 });
 router.post("/", passport.authenticate("jwt", { session: false }), function (req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
-        const user = req.user;
-        const addedMembers = req.body.addedMembers.map((user) => user._id);
-        const members = addedMembers.push(user._id);
-        const conversation = yield Conversation.create({ members: members });
-        return res.json({ conversation });
+        const id = req.body._id;
+        const age = req.body.age;
+        delete req.body.username;
+        const update = req.body;
+        User.updateOne({ _id: id }, update, function (err, user) {
+            if (err) {
+                next();
+            }
+        });
+        return res.json(update);
     });
 });
 module.exports = { router };
-//# sourceMappingURL=conversation.js.map
+//# sourceMappingURL=user.js.map

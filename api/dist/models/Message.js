@@ -2,22 +2,16 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
 const messageSchema = new mongoose_1.Schema({
-    sender: {
-        type: mongoose_1.Schema.Types.ObjectId,
-        ref: "User",
-        required: true,
-    },
-    receiver: {
-        type: mongoose_1.Schema.Types.ObjectId,
-        ref: "User",
-        required: true,
-    },
     text: {
         type: String,
         required: true,
     },
     timestamp: {
         type: Date,
+        required: true,
+    },
+    conversation: {
+        type: mongoose_1.Types.ObjectId,
         required: true,
     },
 });

@@ -8,7 +8,7 @@ const cors = require("cors");
 const http = require("http");
 const passport = require("passport");
 const auth = require("./routes/authentication.js");
-const profile = require("./routes/profile.js");
+const user = require("./routes/user.js");
 const message = require("./routes/message.js");
 const conversation = require("./routes/conversation.js");
 const morgan = require("morgan");
@@ -37,7 +37,7 @@ mongoose_1.default
     app.use(express.json());
     app.use(express.static("public"));
     app.use("/auth", auth.router);
-    app.use("/profile", profile.router);
+    app.use("/user", user.router);
     app.use("/message", message.router);
     app.use("/conversation", conversation.router);
     // ONLY FOR CHAT TESTING
