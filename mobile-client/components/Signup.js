@@ -87,7 +87,8 @@ function Signup() {
             height: 30,
             width: 30,
             alignSelf: "flex-end",
-            marginRight: 20,
+            marginTop: 80,
+            marginRight: 40,
           }}
         />
       </Link>

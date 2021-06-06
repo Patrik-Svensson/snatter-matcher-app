@@ -89,7 +89,8 @@ function Login(props) {
             height: 30,
             width: 30,
             alignSelf: "flex-end",
-            marginRight: 20,
+            marginTop: 80,
+            marginRight: 40,
           }}
         />
       </Link>
@@ -102,9 +103,7 @@ function Login(props) {
         }}
       >
         {redirectElement}
-        <Text style={{ fontSize: 33, marginBottom: 40 }}>
-          Logga in på Asnatt
-        </Text>
+        <Text style={{ fontSize: 33, marginBottom: 40 }}>Log in to Asnatt</Text>
         {inputElement}
         {buttonElement}
       </View>
