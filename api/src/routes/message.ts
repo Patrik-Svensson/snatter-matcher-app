@@ -1,4 +1,3 @@
-import { nextTick } from "process";
 import { IConversation } from "../models/Conversation";
 
 const express = require("express");
@@ -37,7 +36,6 @@ router.post(
       _id: conversationId,
     });
 
-    console.log(conversation);
     if (!conversation.members.includes(user._id)) {
       return next();
     }

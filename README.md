@@ -1,66 +1,35 @@
-# network-matching
+# Snatter
 
-## Techstack
-The selected techstack is also called MERN (Mongo, Express, React, Node)
+Snatter was an early-stage startup venture initiated in **2021**, inspired by the explosive growth of social media platforms like **Clubhouse**. Our vision was to build a **social networking platform** that would connect people based on their **shared interests**, facilitating meaningful conversations and interactions.
 
-### Frontend Web
-React
+## Project Vision
 
-### Frontend Mobile
-React Native
+The goal of Snatter was to:  
+- Create an **interest-based social matching platform**, helping users find like-minded individuals.  
+- Initially focus on a **niche market**, with a go-to-market (GTM) strategy centered around **lunch matching**, allowing professionals and enthusiasts to connect over meals.  
+- Explore future expansion opportunities into broader networking scenarios beyond lunch meetings.
 
-### Backend
-Node.js
-Express
+## Development Status
 
-### Database
-MongoDB
+> **Note:** The project was in its early development phase and was **never completed**, but it served as a valuable learning experience in product ideation, market analysis, and early-stage development challenges.
 
-## Setup
+## Technologies Considered
 
-### Setup Node.js 
-Download and install Node JS from https://nodejs.org/en/
+While the project did not reach full development, the following technologies were initially considered for implementation:  
 
-With the installation, node package manager (npm) should also be installed.
+- **Frontend:** React, React Native, Javascript  
+- **Backend:** Node.js, Typescript, Express
+- **Database:** MongoDB  
+- **Authentication:** JWT  
 
-After installation: 
-1. Open a terminal
-2. Make sure that npm is installed by entering `npm -v`
-3. Make sure that Node.js is installed by entering `node -v`
+## Lessons Learned
 
-### Setup MongoDB
-Download and install MongoDB from https://www.mongodb.com/try/download/community 
+Although Snatter was not completed, it provided valuable insights into:  
 
-https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/
-
-### SSH-key
-https://docs.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
-
-https://docs.github.com/en/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account
-
-### Sebastian testar
+- **Product-market fit challenges** – Conducting effective market research  
+- **Business Model Differentiation** – Identifying unique value propositions  
+- **Revenue Models** – Exploring monetization strategies  
 
 
-## Run Application
-
-### Clone repository
-
-1. Open terminal
-2. Enter `git clone git@github.com:Patrik-Svensson/network-matching.git`
-
-### Run Web Client
-1. Open directory `web-client`
-2. Enter `npm install`
-3. Enter `npm start` to run the react web client
-
-### Run Api
-1. Open directory `api`
-2. Enter `npm install`
-3. Enter `npm start` to run the node api
-
-
-
-
-
-
+---
 

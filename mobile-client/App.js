@@ -1,7 +1,7 @@
 import React, { Profiler, useState } from "react";
 import { StyleSheet, Text, View, Button, TouchableOpacity } from "react-native";
 import { NativeRouter, Route, Link } from "react-router-native";
-import Launch from "./components/Lauch";
+import Launch from "./components/Launch";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
 import Main from "./components/Main";
